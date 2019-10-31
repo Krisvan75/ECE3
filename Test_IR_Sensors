@@ -1,0 +1,65 @@
+#include <Setup_IR.h>
+
+uint16_t sensorValues[8];
+const int left_nslp_pin=31;
+const int left_dir_pin=29;
+const int left_pwm_pin=40;
+const int right_nslp_pin = 11;
+const int right_dir_pin = 30;
+const int right_pwm_pin = 39;
+void turn_Left();
+void turn_Right();
+void setup()
+{
+  pinMode(left_nslp_pin,OUTPUT);
+  pinMode(left_dir_pin,OUTPUT);
+  pinMode(left_pwm_pin,OUTPUT);
+  pinMode(right_nslp_pin,OUTPUT);
+  pinMode(right_dir_pin,OUTPUT);
+  pinMode(right_pwm_pin,OUTPUT);
+  ECE3_Init();
+  int SensorArr[8];
+  Serial.begin(9600); // set the data rate in bits per second for serial data transmission
+  delay(2000);
+}
+
+
+void loop()
+{
+  // read raw sensor values
+  Setup_IR_read_IR(sensorValues);
+
+  // print the sensor values as numbers from 0 to 2500, where 0 means maximum reflectance and
+  // 2500 means minimum reflectance
+  int leftSpd = 100;
+  int rightSpd = 100;
+  for (unsigned char i = 0; i < 8; i++)
+  {
+    Serial.print(sensorValues[i]);
+    Serial.print('\t'); // tab to format the raw data into columns in the Serial monitor
+    
+  }
+  int sum = (sensorValues[0]*(-8))+(sensorValues[1]*(-4))+(sensorValues[2]*(-2))+(sensorValues[3]*(-1))+(sensorValues[4]*(1))+(sensorValues[5]*(2))+(sensorValues[6]*(4))+(sensorValues[7]*(8));
+  Serial.print(sum);
+  Serial.println();
+  if(sum<200)
+  {
+    turn_Right();
+  }
+  if (sum>500);
+  {
+    turn_Left();
+  
+
+  delay(50);
+}
+void turn_left()
+{
+  
+}
+
+void turn_Right()
+{
+  
+}
+
