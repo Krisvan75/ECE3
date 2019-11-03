@@ -1,7 +1,7 @@
-#include "IRSENSOR.h"
+#include "ECE3.h"
 QTRSensors IR;
 
-void IRSENSOR_Init(){
+void ECE3_Init(){
 /* Pinmodes */
 
   pinMode(P5_2, INPUT);
@@ -19,6 +19,6 @@ void IRSENSOR_Init(){
 	
 }
 
-void IRSENSOR_read_IR(uint16_t * sensorValues){
+void ECE3_read_IR(uint16_t * sensorValues){
 	return IR.read(sensorValues);
 }
